@@ -1,0 +1,4 @@
+github.com/pulumi/pulumi-gcp/sdk/v6 v6.43.0 h1:U6M+S7e1SS86nyadOZ55LOYxo4+piuYxPLq3c3R8JqU=
+github.com/pulumi/pulumi-gcp/sdk/v6 v6.43.0/go.mod h1:XQSKusUJfmROSdz4sAdDOGGjgFw3jiwtLlMFnQkvDk0=
+github.com/pulumi/pulumi/sdk/v3 v3.48.0 h1:Uf7Cq7oyzEOT+d+/RSfMldtN4MWWtJhOkOwSZnbr4CE=
+github.com/pulumi/pulumi/sdk/v3 v3.48.0/go.mod h1:n5EPRVFDh+EFwYZ+oaZmEtwgVN1A6NnI82B7ks/bmTU=
