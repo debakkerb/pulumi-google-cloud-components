@@ -1,8 +1,12 @@
 package project
 
 import (
+	"fmt"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/organizations"
+	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/projects"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"infrastructure-as-code/util/project"
+	"strings"
 )
 
 /**
@@ -49,10 +53,37 @@ func NewGoogleProject(ctx *pulumi.Context, resourceName string, args *GoogleProj
 
 	projectSettings := &organizations.ProjectArgs{
 		BillingAccount:    pulumi.String(args.BillingAccountID),
-		FolderId:          nil,
-		OrgId:             nil,
+		FolderId:          pulumi.String(args.FolderID),
+		OrgId:             pulumi.String(args.OrganizationID),
 		AutoCreateNetwork: pulumi.Bool(false),
-		ProjectId:         pulumi.String(args.ProjectName),
+		ProjectId:         pulumi.String(project.GenerateProjectID(args.ProjectName, args.GenerateRandomID)),
 	}
 
+	newProject, err := organizations.NewProject(ctx, resourceName, projectSettings, pulumi.Parent(component))
+	if err != nil {
+		return nil, err
+	}
+
+	for _, api := range args.ProjectAPIS {
+		resourceName := fmt.Sprintf("%s-%s-api", newProject.ProjectId, api[0:strings.Index(".", api)-1])
+		_, err := projects.NewService(ctx, resourceName, &projects.ServiceArgs{
+			DisableDependentServices: pulumi.Bool(true),
+			Project:                  newProject.ProjectId,
+			Service:                  pulumi.String(api),
+		})
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	component.Project = newProject
+
+	if err := ctx.RegisterResourceOutputs(component, pulumi.Map{
+		"projectID":   newProject.ProjectId,
+		"projectName": newProject.Name,
+	}); err != nil {
+		return nil, err
+	}
+	return component, nil
 }
