@@ -2,10 +2,10 @@ package project
 
 import (
 	"fmt"
+	"github.com/debakkerb/pulumi-google-cloud-components/util/project"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/organizations"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/projects"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"infrastructure-as-code/util/project"
 	"strings"
 )
 
