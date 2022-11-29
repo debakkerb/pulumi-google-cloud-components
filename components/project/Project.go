@@ -2,9 +2,8 @@ package project
 
 import (
 	"fmt"
-	"github.com/debakkerb/pulumi-google-cloud-components/util/project"
-	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/organizations"
-	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/projects"
+	"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/organizations"
+	"github.com/pulumi/pulumi-gcp/sdk/v5/go/gcp/projects"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"strings"
 )
@@ -51,14 +50,7 @@ func NewGoogleProject(ctx *pulumi.Context, resourceName string, args *GoogleProj
 		return nil, err
 	}
 
-	projectSettings := &organizations.ProjectArgs{
-		BillingAccount:    pulumi.String(args.BillingAccountID),
-		FolderId:          pulumi.String(args.FolderID),
-		OrgId:             pulumi.String(args.OrganizationID),
-		AutoCreateNetwork: pulumi.Bool(false),
-		ProjectId:         pulumi.String(project.GenerateProjectID(args.ProjectName, args.GenerateRandomID)),
-	}
-
+	projectSettings := &organizations.ProjectArgs{}
 	newProject, err := organizations.NewProject(ctx, resourceName, projectSettings, pulumi.Parent(component))
 	if err != nil {
 		return nil, err

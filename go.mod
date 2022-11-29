@@ -1,11 +1,6 @@
-module github.com/debakkerb/pulumi-google-cloud-components
+module pulumi-google-cloud-components
 
 go 1.19
-
-require (
-	github.com/pulumi/pulumi-gcp/sdk/v6 v6.43.0
-	github.com/pulumi/pulumi/sdk/v3 v3.48.0
-)
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
@@ -37,6 +32,9 @@ require (
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
+	github.com/pulumi/pulumi-gcp/sdk/v5 v5.26.0 // indirect
+	github.com/pulumi/pulumi-google-native/sdk v0.27.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.48.0 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94 // indirect
